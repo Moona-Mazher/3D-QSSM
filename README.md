@@ -38,6 +38,41 @@ https://github.com/goombalab/hydra
 Hydra is included as an external dependency and should be installed
 before running the 3D-QSSM models.
 
+## Installation
+
+3D-QSSM is intended to run on a **Linux system with an NVIDIA GPU and CUDA support**.
+
+Clone the repository together with the Hydra submodule:
+
+```bash
+git clone --recurse-submodules https://github.com/Moona-Mazher/3D-QSSM.git
+cd 3D-QSSM
+```
+
+Create a Python environment and install the core dependencies:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+python -m pip install torch numpy einops nibabel
+```
+
+Install `mamba-ssm` in a CUDA-enabled environment:
+
+```bash
+python -m pip install mamba-ssm --no-build-isolation
+```
+
+> **Note:** `mamba-ssm` requires CUDA/NVIDIA build support and is not expected to install in a CPU-only Windows environment.
+
+The official Hydra implementation is included as a Git submodule under:
+
+```text
+external/hydra
+```
+
 ## Downstream Tasks
 
 3D-QSSM is evaluated on:
