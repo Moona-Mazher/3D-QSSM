@@ -151,27 +151,28 @@ The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, compr
 
 ## Downstream Tasks
 
-3D-QSSM is evaluated on:
+3D-QSSM is evaluated on three downstream tasks.
 
 ### Brain Age Prediction
 
-Prepare a CSV file with two columns:
+Prepare a CSV file:
 
 ```text
 image_path,age
 subject001.nii.gz,45
 subject002.nii.gz,62
 subject003.nii.gz,51
+```
 
 Run:
 
+```bash
 python scripts/train_brain_age.py \
     --csv /path/to/ixi_brain_age.csv \
     --data_root /path/to/IXI
+```
 
-
-
-Alzheimer's Disease Classification
+### Alzheimer's Disease Classification
 
 Prepare a CSV file:
 
@@ -179,29 +180,40 @@ Prepare a CSV file:
 image_path,label
 subject001.nii.gz,0
 subject002.nii.gz,1
+```
 
-where 0 = Control and 1 = Alzheimer's disease.
+where `0 = Control` and `1 = Alzheimer's disease`.
 
 Run:
 
+```bash
 python scripts/train_ad_classification.py \
     --csv /path/to/adni_labels.csv \
     --data_root /path/to/ADNI
+```
 
 ### Brain Tumor Segmentation
 
-Prepare a CSV containing the four MRI modalities and WT, TC and ET masks:
+Prepare a CSV file:
 
 ```text
 t1,t2,flair,t1gd,wt,tc,et
 sub001_t1.nii.gz,sub001_t2.nii.gz,sub001_flair.nii.gz,sub001_t1gd.nii.gz,sub001_wt.nii.gz,sub001_tc.nii.gz,sub001_et.nii.gz
+```
 
 Run:
 
+```bash
 python scripts/train_tumor_segmentation.py \
     --csv /path/to/upenn_gbm.csv \
     --data_root /path/to/UPENN-GBM
+```
 
+## Repository Status
+
+The public implementation is currently being organized and documented.
+
+## Key Results
 ### Repository Status
 
 The public implementation is currently being organized and documented.
