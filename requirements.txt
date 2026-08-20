@@ -2,3 +2,4 @@ torch
 numpy
 einops
 mamba-ssm
+nibabel
