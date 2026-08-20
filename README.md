@@ -171,7 +171,7 @@ python scripts/train_brain_age.py \
 
 
 
-### Alzheimer's Disease Classification
+Alzheimer's Disease Classification
 
 Prepare a CSV file:
 
