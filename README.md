@@ -27,6 +27,16 @@ The default configuration used in the paper is:
 * Decoder depth: `12`
 * Decoder embedding dimension: `192`
 * Masking ratio: `75%`
+  
+## Hydra dependency
+
+3D-QSSM uses the official Hydra implementation of bidirectional
+quasiseparable state-space mixing:
+
+https://github.com/goombalab/hydra
+
+Hydra is included as an external dependency and should be installed
+before running the 3D-QSSM models.
 
 ## Downstream Tasks
 
