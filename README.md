@@ -162,22 +162,41 @@ image_path,age
 subject001.nii.gz,45
 subject002.nii.gz,62
 subject003.nii.gz,51
+
+Run:
+
 python scripts/train_brain_age.py \
     --csv /path/to/ixi_brain_age.csv \
     --data_root /path/to/IXI
 
 
 
-* Alzheimer's disease classification
+* ### Alzheimer's Disease Classification
+
+Prepare a CSV file:
+
+```text
+image_path,label
+subject001.nii.gz,0
+subject002.nii.gz,1
+
+where 0 = Control and 1 = Alzheimer's disease.
+
+Run:
+
+python scripts/train_ad_classification.py \
+    --csv /path/to/adni_labels.csv \
+    --data_root /path/to/ADNI
+
 * Brain tumor segmentation
 
-## Repository Status
+### Repository Status
 
 The public implementation is currently being organized and documented.
 
 Training scripts, pretrained weights, downstream fine-tuning code, and detailed installation instructions will be added progressively.
 
-## Key Results
+### Key Results
 
 3D-QSSM was evaluated across regression, classification, and segmentation tasks using 5-fold cross-validation and few-shot settings.
 
