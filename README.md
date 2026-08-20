@@ -209,18 +209,8 @@ python scripts/train_tumor_segmentation.py \
     --data_root /path/to/UPENN-GBM
 ```
 
-## Repository Status
-
-The public implementation is currently being organized and documented.
 
 ## Key Results
-### Repository Status
-
-The public implementation is currently being organized and documented.
-
-Training scripts, pretrained weights, downstream fine-tuning code, and detailed installation instructions will be added progressively.
-
-### Key Results
 
 3D-QSSM was evaluated across regression, classification, and segmentation tasks using 5-fold cross-validation and few-shot settings.
 
