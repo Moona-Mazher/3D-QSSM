@@ -82,3 +82,4 @@ def find_nifti_files(data_dir):
     )
 
     return sorted(files)
+
