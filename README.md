@@ -116,6 +116,35 @@ MRI intensities are standardized volume-wise using:
 (image - mean) / (standard deviation + 1e-8)
 ```
 
+## Self-Supervised Pretraining
+
+3D-QSSM is pretrained using a 3D masked autoencoder objective. The default configuration masks **75% of the input patches**, encodes the visible tokens using the 3D-QSSM backbone, and reconstructs the masked patches with the MAE decoder.
+
+The paper reports the following pretraining settings:
+
+* Epochs: `1000`
+* Learning rate: `1e-3`
+* Weight decay: `0.05`
+* Scheduler: cosine annealing
+* Input size: `160 × 160 × 160`
+* Patch size: `16 × 16 × 16`
+* Masking ratio: `0.75`
+
+Run pretraining with:
+
+```bash id="nk3z2p"
+python scripts/pretrain_mae.py \
+    --data_dir /path/to/preprocessed_mri \
+    --epochs 1000 \
+    --batch_size 1 \
+    --lr 1e-3 \
+    --weight_decay 0.05
+```
+
+The training script recursively searches the supplied directory for `.nii` and `.nii.gz` files.
+
+> **Important:** the current public implementation expects MRI volumes to already be prepared at `160 × 160 × 160`. Registration, resampling, cropping, and other spatial preprocessing are not automatically performed by the training script.
+
 ### Pretraining datasets
 
 The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a total of **175,099 MRI volumes from 45,378 subjects**. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
