@@ -153,7 +153,21 @@ The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, compr
 
 3D-QSSM is evaluated on:
 
-* Brain age prediction
+* ### Brain Age Prediction
+
+Prepare a CSV file with two columns:
+
+```text
+image_path,age
+subject001.nii.gz,45
+subject002.nii.gz,62
+subject003.nii.gz,51
+python scripts/train_brain_age.py \
+    --csv /path/to/ixi_brain_age.csv \
+    --data_root /path/to/IXI
+
+
+
 * Alzheimer's disease classification
 * Brain tumor segmentation
 
