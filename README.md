@@ -41,3 +41,16 @@ The default configuration used in the paper is:
 The public implementation is currently being organized and documented.
 
 Training scripts, pretrained weights, downstream fine-tuning code, and detailed installation instructions will be added progressively.
+
+## Key Results
+
+3D-QSSM was evaluated across regression, classification, and segmentation tasks using 5-fold cross-validation and few-shot settings.
+
+* **Brain age prediction:** up to **25% lower MAE** compared with transformer-based MAE baselines.
+* **Alzheimer's disease classification:** approximately **3–5% improvement** in classification performance.
+* **Brain tumor segmentation:** approximately **6–25% improvement in Dice score** across tumor regions and data regimes.
+* **Few-shot learning:** consistently stronger performance when only a fraction of labelled data is available.
+* **Memory efficiency:** mean GPU memory usage of **39.17 GB**, compared with **49.58 GB** for 3D Swin-MAE and **67.95 GB** for 3D ViT-MAE.
+
+These results indicate that 3D-QSSM combines improved downstream performance with substantially lower and more stable GPU memory consumption for volumetric medical imaging.
+
