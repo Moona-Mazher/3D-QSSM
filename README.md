@@ -188,7 +188,19 @@ python scripts/train_ad_classification.py \
     --csv /path/to/adni_labels.csv \
     --data_root /path/to/ADNI
 
-* Brain tumor segmentation
+* ### Brain Tumor Segmentation
+
+Prepare a CSV containing the four MRI modalities and WT, TC and ET masks:
+
+```text
+t1,t2,flair,t1gd,wt,tc,et
+sub001_t1.nii.gz,sub001_t2.nii.gz,sub001_flair.nii.gz,sub001_t1gd.nii.gz,sub001_wt.nii.gz,sub001_tc.nii.gz,sub001_et.nii.gz
+
+Run:
+
+python scripts/train_tumor_segmentation.py \
+    --csv /path/to/upenn_gbm.csv \
+    --data_root /path/to/UPENN-GBM
 
 ### Repository Status
 
