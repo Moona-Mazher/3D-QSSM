@@ -1,10 +1,23 @@
+import sys
+from pathlib import Path
+
 import torch
 import torch.nn as nn
 
+
+HYDRA_ROOT = Path(__file__).resolve().parents[2] / "external" / "hydra"
+
+if str(HYDRA_ROOT) not in sys.path:
+    sys.path.insert(0, str(HYDRA_ROOT))
+
 try:
     from hydra.modules.hydra import Hydra
-except ImportError:
-    Hydra = None
+except ImportError as e:
+    raise ImportError(
+        "Could not import the official Hydra implementation. "
+        "Make sure the repository was cloned with submodules:\n"
+        "git clone --recurse-submodules https://github.com/Moona-Mazher/3D-QSSM.git"
+    ) from e
 
 
 class QSSMBlock(nn.Module):
