@@ -72,6 +72,53 @@ The official Hydra implementation is included as a Git submodule under:
 ```text
 external/hydra
 ```
+## Data Preparation
+
+3D-QSSM expects preprocessed 3D MRI volumes in **NIfTI format** (`.nii` or `.nii.gz`).
+
+The default model configuration uses:
+
+* Input size: `160 × 160 × 160`
+* Number of channels: `1`
+* Patch size: `16 × 16 × 16`
+
+The current dataset loader assumes that each MRI has already been spatially prepared to the expected model input size. It does **not** automatically perform registration, resampling, cropping, or resizing.
+
+Example directory structure:
+
+```text id="w5pzgm"
+data/
+├── subject_001.nii.gz
+├── subject_002.nii.gz
+├── subject_003.nii.gz
+└── ...
+```
+
+The loader recursively searches for `.nii` and `.nii.gz` files.
+
+Example:
+
+```python id="7gkdnl"
+from qssm.data.mri_dataset import MRIDataset, find_nifti_files
+
+image_paths = find_nifti_files("/path/to/data")
+
+dataset = MRIDataset(
+    image_paths=image_paths,
+    expected_size=(160, 160, 160),
+    normalize=True,
+)
+```
+
+MRI intensities are standardized volume-wise using:
+
+```text id="9716tz"
+(image - mean) / (standard deviation + 1e-8)
+```
+
+### Pretraining datasets
+
+The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a total of **175,099 MRI volumes from 45,378 subjects**. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
 
 ## Downstream Tasks
 
