@@ -222,3 +222,19 @@ python scripts/train_tumor_segmentation.py \
 
 These results indicate that 3D-QSSM combines improved downstream performance with substantially lower and more stable GPU memory consumption for volumetric medical imaging.
 
+## Pretrained Weights
+
+Pretrained 3D-QSSM checkpoints will be released here.
+
+## Citation
+
+If you use 3D-QSSM in your research, please cite our paper. Citation details will be added upon publication.
+
+## Acknowledgements
+
+3D-QSSM uses the official Hydra implementation for bidirectional quasiseparable state-space mixing, included as a Git submodule under `external/hydra`.
+
+## License
+
+This project is licensed under the Apache License 2.0. See the `LICENSE` file for details.
+
