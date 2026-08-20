@@ -44,11 +44,6 @@ class QSSMBlock(nn.Module):
     ):
         super().__init__()
 
-        if Hydra is None:
-            raise ImportError(
-                "Hydra is not installed. Install the Hydra package "
-                "before using QSSMBlock."
-            )
 
         self.norm1 = nn.LayerNorm(dim)
 
