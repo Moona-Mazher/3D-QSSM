@@ -104,3 +104,4 @@ if __name__ == "__main__":
     assert y.shape == (2, 1000, 384)
 
     print("QSSM3DEncoder test passed.")
+    
