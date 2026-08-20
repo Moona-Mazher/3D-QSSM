@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+from .mae_loss import masked_reconstruction_loss
 from .patch_embed_3d import PatchEmbed3D
 from .qssm_block import QSSMBlock
 from .masking import random_masking
@@ -208,14 +209,21 @@ class QSSM3DMAE(nn.Module):
         return pred
 
     def forward(self, x):
-        latent, mask, ids_restore = self.forward_encoder(x)
+    latent, mask, ids_restore = self.forward_encoder(x)
 
-        pred = self.forward_decoder(
-            latent,
-            ids_restore,
-        )
+    pred = self.forward_decoder(
+        latent,
+        ids_restore,
+    )
 
-        return pred, mask
+    loss = masked_reconstruction_loss(
+        images=x,
+        predictions=pred,
+        mask=mask,
+        patch_size=self.patch_size,
+    )
+
+    return loss, pred, mask
 
 
 if __name__ == "__main__":
@@ -229,11 +237,12 @@ if __name__ == "__main__":
         160,
     )
 
-    pred, mask = model(x)
+    loss, pred, mask = model(x)
 
     print("Input shape :", x.shape)
     print("Prediction  :", pred.shape)
     print("Mask shape  :", mask.shape)
+    print("Loss        :", loss.item())
 
     # 16^3 = 4096 voxels per patch
     assert pred.shape == (1, 1000, 4096)
