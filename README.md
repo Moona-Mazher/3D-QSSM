@@ -153,7 +153,7 @@ The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, compr
 
 3D-QSSM is evaluated on:
 
-* ### Brain Age Prediction
+### Brain Age Prediction
 
 Prepare a CSV file with two columns:
 
@@ -171,7 +171,7 @@ python scripts/train_brain_age.py \
 
 
 
-* ### Alzheimer's Disease Classification
+### Alzheimer's Disease Classification
 
 Prepare a CSV file:
 
@@ -188,7 +188,7 @@ python scripts/train_ad_classification.py \
     --csv /path/to/adni_labels.csv \
     --data_root /path/to/ADNI
 
-* ### Brain Tumor Segmentation
+### Brain Tumor Segmentation
 
 Prepare a CSV containing the four MRI modalities and WT, TC and ET masks:
 
