@@ -1,9 +1,11 @@
+
 import torch
 
 
 def random_masking(x, mask_ratio=0.75):
     """
-    Randomly mask tokens for MAE pretraining.
+    Randomly mask tokens for MAE pretraining while
+    preserving the spatial order of visible tokens.
 
     Args:
         x:
@@ -15,7 +17,7 @@ def random_masking(x, mask_ratio=0.75):
 
     Returns:
         x_visible:
-            Visible tokens after masking.
+            Visible tokens in original spatial order.
 
         mask:
             Binary mask of shape [B, N]
@@ -23,46 +25,53 @@ def random_masking(x, mask_ratio=0.75):
             1 = masked
 
         ids_restore:
-            Indices used later to restore the
-            original token ordering.
+            Indices used by the decoder to restore
+            the original token ordering.
     """
 
     B, N, C = x.shape
 
     len_keep = int(N * (1 - mask_ratio))
 
-    # Random value for every token
+    # Generate random values for every token
     noise = torch.rand(B, N, device=x.device)
 
-    # Sort tokens according to random noise
+    # Randomly select visible and masked tokens
     ids_shuffle = torch.argsort(noise, dim=1)
 
-    # Indices required to restore original order
-    ids_restore = torch.argsort(ids_shuffle, dim=1)
+    # Keep visible tokens in original spatial order
+    ids_keep = torch.sort(
+        ids_shuffle[:, :len_keep], dim=1
+    ).values
 
-    # Keep only visible tokens
-    ids_keep = ids_shuffle[:, :len_keep]
+    # Keep masked token indices in original order
+    ids_masked = torch.sort(
+        ids_shuffle[:, len_keep:], dim=1
+    ).values
 
+    # Construct decoder ordering:
+    # visible tokens followed by masked tokens
+    ids_order = torch.cat(
+        [ids_keep, ids_masked], dim=1
+    )
+
+    # Indices to restore original token positions
+    ids_restore = torch.argsort(ids_order, dim=1)
+
+    # Extract visible tokens
     x_visible = torch.gather(
         x,
         dim=1,
-        index=ids_keep.unsqueeze(-1).repeat(1, 1, C),
+        index=ids_keep.unsqueeze(-1).expand(-1, -1, C),
     )
 
-    # Create binary mask
+    # Binary mask in original spatial order
     mask = torch.ones(
-        [B, N],
+        (B, N),
         device=x.device,
     )
 
-    mask[:, :len_keep] = 0
-
-    # Restore mask to original token ordering
-    mask = torch.gather(
-        mask,
-        dim=1,
-        index=ids_restore,
-    )
+    mask.scatter_(1, ids_keep, 0)
 
     return x_visible, mask, ids_restore
 
