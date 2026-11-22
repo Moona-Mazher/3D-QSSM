@@ -139,7 +139,17 @@ def main():
         print(
             f"Average loss: {avg_loss:.6f}"
         )
-
+        # Save checkpoint after each epoch
+        torch.save(
+            {
+                "epoch": epoch + 1,
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "scheduler_state_dict": scheduler.state_dict(),
+                "loss": avg_loss,
+            },
+            "qssm_mae_checkpoint.pth",
+        )
 
 if __name__ == "__main__":
     main()
