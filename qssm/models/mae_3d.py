@@ -208,22 +208,23 @@ class QSSM3DMAE(nn.Module):
 
         return pred
 
+  
     def forward(self, x):
-    latent, mask, ids_restore = self.forward_encoder(x)
+        latent, mask, ids_restore = self.forward_encoder(x)
 
-    pred = self.forward_decoder(
-        latent,
-        ids_restore,
-    )
+        pred = self.forward_decoder(
+            latent,
+            ids_restore,
+        )
 
-    loss = masked_reconstruction_loss(
-        images=x,
-        predictions=pred,
-        mask=mask,
-        patch_size=self.patch_size,
-    )
+        loss = masked_reconstruction_loss(
+            images=x,
+            predictions=pred,
+            mask=mask,
+            patch_size=self.patch_size,
+        )
 
-    return loss, pred, mask
+        return loss, pred, mask
 
 
 if __name__ == "__main__":
