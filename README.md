@@ -147,7 +147,7 @@ The training script recursively searches the supplied directory for `.nii` and `
 
 ### Pretraining datasets
 
-The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a total of **175,099 MRI volumes from 45,378 subjects**. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
+The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a combined total of **175,099 MRI scan instances**. FOMO-60K contains 60,529 scans from 11,187 subjects, while SSL3D contains 114,570 scans from 34,191 subjects. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
 
 ## Downstream Tasks
 
