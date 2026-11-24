@@ -1,6 +1,6 @@
 # 3D-QSSM
 
-**3D-QSSM: A Quasi-Separable Vision State-Space Model for Scalable Foundation Models in Volumetric Medical Imaging**
+**3D-QSSM: A Quasi-Separable Vision State-Space Backbone for Scalable Foundation Models in Volumetric Medical Imaging**
 
 
 <p align="center">
@@ -147,7 +147,7 @@ The training script recursively searches the supplied directory for `.nii` and `
 
 ### Pretraining datasets
 
-The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a combined total of **175,099 MRI scan instances**. FOMO-60K contains 60,529 scans from 11,187 subjects, while SSL3D contains 114,570 scans from 34,191 subjects. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
+The paper uses **FOMO-60K** and **SSL3D** for self-supervised pretraining, comprising a combined total of **172,569 MRI scan instances** after excluding IXI scans to prevent downstream data leakage. FOMO-60K (excluding IXI) contains 57,999 scans from 10,603 subjects, while SSL3D contains 114,570 scans from 34,191 subjects. Downstream evaluation uses IXI, ADNI, and UPENN-GBM for brain age prediction, Alzheimer's disease classification, and brain tumor segmentation, respectively.
 
 ## Downstream Tasks
 
@@ -218,9 +218,9 @@ python scripts/train_tumor_segmentation.py \
 * **Alzheimer's disease classification:** approximately **3–5% improvement** in classification performance.
 * **Brain tumor segmentation:** approximately **6–25% improvement in Dice score** across tumor regions and data regimes.
 * **Few-shot learning:** consistently stronger performance when only a fraction of labelled data is available.
-* **Memory efficiency:** mean GPU memory usage of **39.17 GB**, compared with **49.58 GB** for 3D Swin-MAE and **67.95 GB** for 3D ViT-MAE.
+* **Memory efficiency:** mean GPU memory usage of **41.3 GB**, compared with **48.6 GB** for 3D Mamba-MAE, **52.8 GB** for 3D Swin-MAE, and **71.4 GB** for 3D ViT-MAE.
 
-These results indicate that 3D-QSSM combines improved downstream performance with substantially lower and more stable GPU memory consumption for volumetric medical imaging.
+An ablation against 3D Mamba-MAE shows that bidirectional quasi-separable mixing outperforms generic unidirectional state-space modeling across all three tasks (IXI MAE 10.6 vs 12.2 years; ADNI AUC 0.931 vs 0.879; UPENN-GBM Dice 0.900 vs 0.840). These results indicate that 3D-QSSM combines improved downstream performance with substantially lower and more stable GPU memory consumption for volumetric medical imaging.
 
 ## Pretrained Weights
 
